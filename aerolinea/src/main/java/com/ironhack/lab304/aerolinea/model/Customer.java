@@ -4,23 +4,33 @@ import jakarta.persistence.*;
 
 @Entity
 public class Customer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer customerId;
 
-    private String name;
-    private String status;
+    private String customerName;
 
-    public Customer() {
-        this.name = name;
-        this.status = status;
+    @Enumerated(EnumType.STRING)
+    private CustomerStatus customerStatus;
+
+    private Integer totalCustomerMileage;
+
+    // Default constructor
+    public Customer() {}
+
+    // Parameterized constructor
+    public Customer(String customerName, CustomerStatus customerStatus, Integer totalCustomerMileage) {
+        this.customerName = customerName;
+        this.customerStatus = customerStatus;
+        this.totalCustomerMileage = totalCustomerMileage;
     }
 
     public Customer(String johnDoe, String gold) {
     }
 
     // Getters and setters
-    public Integer getId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
@@ -28,21 +38,36 @@ public class Customer {
         this.customerId = customerId;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    public CustomerStatus getCustomerStatus() {
+        return customerStatus;
+    }
+
+    public void setCustomerStatus(CustomerStatus customerStatus) {
+        this.customerStatus = customerStatus;
+    }
+
+    public Integer getTotalCustomerMileage() {
+        return totalCustomerMileage;
+    }
+
+    public void setTotalCustomerMileage(Integer totalCustomerMileage) {
+        this.totalCustomerMileage = totalCustomerMileage;
+    }
+
+    public String getName() {
+        return customerName;
     }
 
     public String getStatus() {
-        return status;
+        return customerStatus.toString(); //  customerStatus is an enum
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    // Other getters and setters...
 }

@@ -11,5 +11,9 @@ public interface FlightRepository extends JpaRepository<Flight, Integer> {
     List<Flight> findByPlaneNameContaining(String boeing);
 
     List<Flight> findByDistanceGreaterThan(int i);
+
+    List<Flight> findByAircraftContaining(String boeing);
+
+    List<Flight> findByFlightMileageGreaterThan(int i);
     // You can add custom query methods here if needed
 }

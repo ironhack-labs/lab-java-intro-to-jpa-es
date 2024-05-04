@@ -20,16 +20,14 @@ public class FlightBooking {
     @JoinColumn(name = "flightId", referencedColumnName = "flightId")
     private Flight flight;
 
-    // Empty constructor for Hibernate
     public FlightBooking() {}
 
-    // Parameterized constructor
     public FlightBooking(Customer customer, Flight flight) {
         this.customer = customer;
         this.flight = flight;
     }
 
-    // Getter and setter methods
+    // Getters and setters
     public Integer getBookingId() {
         return bookingId;
     }

@@ -2,6 +2,7 @@ package com.ironhack.lab304.aerolinea.service;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.ironhack.lab304.aerolinea.model.Flight;
 import com.ironhack.lab304.aerolinea.repository.FlightRepository;
@@ -16,63 +17,34 @@ import java.util.List;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@Transactional
 public class FlightRepositoryTest {
 
     @Autowired
     private FlightRepository flightRepository;
 
     @Test
-    public void testFindFlightByFlightNumber() {
-        // Create a new flight
-        Flight newFlight = new Flight("BA123", "Boeing 747", 600);
+    public void testFindByAircraftContaining() {
+        // Create a flight with an aircraft name containing "Boeing"
+        Flight flight = new Flight("AB123", "Boeing 747", 300, 1000);
+        flightRepository.save(flight);
 
-        // Save the flight
-        Flight savedFlight = flightRepository.save(newFlight);
+        // Retrieve flights by aircraft name containing "Boeing"
+        List<Flight> flights = flightRepository.findByAircraftContaining("Boeing");
 
-        // Retrieve the flight by flight number
-        Flight retrievedFlight = flightRepository.findByFlightNumber("BA123");
-
-        // Verify that the flight was retrieved successfully
-        assertNotNull(retrievedFlight);
-        assertEquals(savedFlight.getFlightNumber(), retrievedFlight.getFlightNumber());
+        // Check if the retrieved flight list contains the flight
+        assertTrue(flights.contains(flight));
     }
 
     @Test
-    public void testFindPlanesByNameContaining() {
-        // Create flights with plane names containing "Boeing"
-        Flight boeingFlight1 = new Flight("BA123", "Boeing 747", 600);
-        Flight boeingFlight2 = new Flight("BA456", "Airbus A320", 500);
-        Flight boeingFlight3 = new Flight("BA789", "Boeing 777", 700);
+    public void testFindByFlightMileageGreaterThan() {
+        // Create a flight with a mileage greater than 500
+        Flight flight = new Flight("AB123", "Airbus A320", 200, 600);
+        flightRepository.save(flight);
 
-        // Save the flights
-        flightRepository.save(boeingFlight1);
-        flightRepository.save(boeingFlight2);
-        flightRepository.save(boeingFlight3);
+        // Retrieve flights with mileage greater than 500
+        List<Flight> flights = flightRepository.findByFlightMileageGreaterThan(500);
 
-        // Find flights with plane names containing "Boeing"
-        List<Flight> boeingFlights = flightRepository.findByPlaneNameContaining("Boeing");
-
-        // Verify that the correct number of flights were retrieved
-        assertEquals(2, boeingFlights.size());
-    }
-
-    @Test
-    public void testFindFlightsByDistanceGreaterThan() {
-        // Create flights with distances greater than 500 miles
-        Flight longFlight1 = new Flight("BA123", "Boeing 747", 600);
-        Flight longFlight2 = new Flight("BA456", "Airbus A320", 700);
-        Flight shortFlight = new Flight("BA789", "Boeing 777", 400);
-
-        // Save the flights
-        flightRepository.save(longFlight1);
-        flightRepository.save(longFlight2);
-        flightRepository.save(shortFlight);
-
-        // Find flights with distances greater than 500 miles
-        List<Flight> longFlights = flightRepository.findByDistanceGreaterThan(500);
-
-        // Verify that the correct number of flights were retrieved
-        assertEquals(2, longFlights.size());
+        // Check if the retrieved flight list contains the flight
+        assertTrue(flights.contains(flight));
     }
 }

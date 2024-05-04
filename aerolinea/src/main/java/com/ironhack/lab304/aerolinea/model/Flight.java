@@ -4,18 +4,17 @@ import jakarta.persistence.*;
 
 @Entity
 public class Flight {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer flightId;
+
     private String flightNumber;
     private String aircraft;
     private Integer totalAircraftSeats;
     private Integer flightMileage;
-    @Id
-    private Long id;
 
-    // Empty constructor for Hibernate
     public Flight() {}
 
-    // Parameterized constructor
     public Flight(String flightNumber, String aircraft, Integer totalAircraftSeats, Integer flightMileage) {
         this.flightNumber = flightNumber;
         this.aircraft = aircraft;
@@ -26,7 +25,7 @@ public class Flight {
     public Flight(String abc123, String s, int i) {
     }
 
-    // Getter and setter methods
+    // Getters and setters
     public Integer getFlightId() {
         return flightId;
     }
@@ -67,19 +66,7 @@ public class Flight {
         this.flightMileage = flightMileage;
     }
 
-     public double getPlaneName() {
-         return 0;
-     }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public long getDistance() {
-        return 0;
+    public int getDistance() {
+        return getDistance();
     }
 }
