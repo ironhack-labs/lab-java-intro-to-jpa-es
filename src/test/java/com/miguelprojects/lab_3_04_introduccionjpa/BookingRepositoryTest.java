@@ -87,11 +87,21 @@ public class BookingRepositoryTest {
     //Escribe pruebas para verificar tu capacidad para crear nuevos clientes.
     @Test
     @DisplayName("Creating Customers_OK")
-    public void createCustomers(){
+    public void createCustomer(){
         Customer randomCustomer = new Customer("Pablo Prieto", CustomerStatus.GOLD, 23451);
         customerRepository.save(randomCustomer);
         List<Customer> result = customerRepository.findAll();
         assertEquals(result.getLast(), randomCustomer);
+    }
+
+    //Escribe pruebas para verificar tu capacidad para crear nuevos vuelos.
+    @Test
+    @DisplayName("Creating Flights_OK")
+    public void createFlight(){
+        Flight newFlight = new Flight("DL250", "Airbus 550", 300, 1150);
+        flightRepository.save(newFlight);
+        List<Flight> result = flightRepository.findAll();
+        assertEquals(result.getLast(), newFlight);
     }
 
 //Escribe pruebas para verificar tu capacidad para encontrar clientes por nombre.
@@ -115,7 +125,7 @@ public class BookingRepositoryTest {
     @DisplayName("Find Flights by FlightNumber_OK")
     public void findFlightsByFlightNumber(){
         List<Flight> flights = flightRepository.findByFlightNumber("DL143");
-        assertEquals("Boeing 747", flights.getFirst().getAircraft());
+        assertEquals("Boeing 747", flights.get(0).getAircraft());
     }
 
     //Escribe pruebas para verificar tu capacidad para encontrar aviones con nombres que contengan "Boeing".
